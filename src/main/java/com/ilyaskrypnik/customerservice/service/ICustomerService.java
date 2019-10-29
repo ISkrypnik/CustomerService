@@ -6,7 +6,11 @@ import java.util.List;
 
 public interface ICustomerService {
 
-    List<Customer> create(Customer customer);
+    Customer create(Customer customer);
 
     List<Customer> findAllByFirstNameAndLastName(String firstName, String lastName);
+
+    Customer getById(long id);
+
+    Customer save(Customer customer);
 }

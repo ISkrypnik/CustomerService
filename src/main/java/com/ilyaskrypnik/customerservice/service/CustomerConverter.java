@@ -2,16 +2,15 @@ package com.ilyaskrypnik.customerservice.service;
 
 import com.ilyaskrypnik.customerservice.domain.Customer;
 import com.ilyaskrypnik.customerservice.dto.CustomerDto;
-import com.ilyaskrypnik.customerservice.repository.AddressRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerConverter implements ICustomerConverter {
+public class CustomerConverter implements ICustomerServiceConverter<Customer, CustomerDto> {
 
-    private final AddressRepository addressRepository;
+    private final AddressConverter addressConverter;
 
-    CustomerConverter(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
+    CustomerConverter(AddressConverter addressConverter) {
+        this.addressConverter = addressConverter;
     }
 
     @Override
@@ -21,8 +20,8 @@ public class CustomerConverter implements ICustomerConverter {
         customer.setLastName(customerDto.getLastName());
         customer.setMiddleName(customerDto.getMiddleName());
         customer.setSex(customerDto.getSex());
-        customer.setRegisteredAddress(addressRepository.getOne(customerDto.getRegisteredAddressId()));
-        customer.setActualAddress(addressRepository.getOne(customerDto.getActualAddressId()));
+        customer.setRegisteredAddress(addressConverter.getFromDto(customerDto.getRegisteredAddress()));
+        customer.setActualAddress(addressConverter.getFromDto(customerDto.getActualAddress()));
         return customer;
     }
 }

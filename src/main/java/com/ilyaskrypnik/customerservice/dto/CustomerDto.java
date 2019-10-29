@@ -10,10 +10,10 @@ import javax.validation.constraints.NotNull;
 public class CustomerDto {
 
     @NotNull
-    private Long registeredAddressId;
+    private AddressDto registeredAddress;
 
     @NotNull
-    private Long actualAddressId;
+    private AddressDto actualAddress;
 
     private String firstName;
 
